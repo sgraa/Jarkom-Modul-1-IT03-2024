@@ -22,7 +22,7 @@ Berikut flag yang kami temukan dari menjawab pertanyaan yang diajukan.
 ### Evidence
 Dalam soal ini, terdapat beberapa langkah yang harus dilakukan serta beberapa soal yang harus dijawab untuk memperoleh flag. Pertama, kita diminta untuk menganalisis terlebih dahulu file `.pcap` yang diberikan. Melalui file tersebut, diketahui bahwa kebanyakan packet yang dikirimkan dan diterima adalah dalam bentuk **HTTP**, kami juga mengetahui bahwa terdapat beberapa pola berulang dimana terjadi komunikasi **POST** dan **GET**. Kami memutuskan untuk menggunakan display filter `http.request.method == "POST"` dan mengamati bahwa terdapat berulang kali **POST** ke **/app/includes/process_login.php** dan menelusuri packet satu persatu. Kemudian kami menjawab pertanyaan yang diberikan yaitu domain korban, web server yang digunakan korban, endpoint untuk login sebagai user biasa, serta email dan password yang digunakan untuk login. Setelah menjawab pertanyaan dengan benar, ditemukanlah flag dari soal ini.
 
-![http.request.method == "POST"](images/evidence_proof.png)
+![http.request.method == "POST"](images/evidence_proof2.png)
 
 Berikut flag yang kami temukan dari menjawab pertanyaan yang diajukan.
-![Flag Found!](images/evidence_proof2.png)
+![Flag Found!](images/evidence_proof.png)
