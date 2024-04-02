@@ -73,3 +73,8 @@ Berikut hasil decoding dari pesan berformat base64 tersebut.
 
 Hasil decoding pesan tersebut kemudian digunakan untuk memperoleh flag dibawah ini.
 ![Flag Found!](images/whoami_proof3.png)
+
+### Trace him
+Dalam case ini diminta untuk mencari alamat ip dari attacker yang mencoba login attempt dengan brute force. Alamat ip tersebut dapat dilihat dari ip destination dari pesan respons yang dikirim oleh server ketika mengirimkan paket "530 Login  incorrect", alamat ip dari attacker adalah **10.30.3.4**
+
+![ip attacker](images/ftp_proof3.png)
