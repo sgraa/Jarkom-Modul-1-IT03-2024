@@ -19,6 +19,11 @@ Untuk mendapatkan flag dari soal ini, kami diminta untuk menjawab password yang 
 Berikut flag yang kami temukan dari menjawab pertanyaan yang diajukan.
 ![Flag Found!](images/ftp_proof2.png)
 
+### How many packets?
+Dari case yang sebelumnya diminta untuk mencari tahu berapa banyak failed login attempt yang dilakukan attacker. Ketika terjadi login attempt yang gagal maka server akan memberikan response **"530 Login incorrect."** dengan frame length 94. Maka digunakan filter `frame.len==94 && ip.src==10.15.40.20` menampilkan semua paket yang dikirim dari server dengan frame length 94. Didapatkan jumlahnya ada 934 yang berarti attacker melakukan 934 kali percobaan login yang gagal.
+
+![Login incorrect](images/ftp_proof3.png)
+
 ### Evidence
 Dalam soal ini, terdapat beberapa langkah yang harus dilakukan serta beberapa soal yang harus dijawab untuk memperoleh flag. Pertama, kita diminta untuk menganalisis terlebih dahulu file `.pcap` yang diberikan. Melalui file tersebut, diketahui bahwa kebanyakan packet yang dikirimkan dan diterima adalah dalam bentuk **HTTP**, kami juga mengetahui bahwa terdapat beberapa pola berulang dimana terjadi komunikasi **POST** dan **GET**. Kami memutuskan untuk menggunakan display filter `http.request.method == "POST"` dan mengamati bahwa terdapat berulang kali **POST** ke **/app/includes/process_login.php** dan menelusuri packet satu persatu. Kemudian kami menjawab pertanyaan yang diberikan yaitu domain korban, web server yang digunakan korban, endpoint untuk login sebagai user biasa, serta email dan password yang digunakan untuk login. Setelah menjawab pertanyaan dengan benar, ditemukanlah flag dari soal ini.
 
@@ -26,3 +31,24 @@ Dalam soal ini, terdapat beberapa langkah yang harus dilakukan serta beberapa so
 
 Berikut flag yang kami temukan dari menjawab pertanyaan yang diajukan.
 ![Flag Found!](images/evidence_proof.png)
+
+### Creds
+Dalam case di soal ini diminta untuk mencari kredensial yang digunakan attacker untuk login. Ketika terjadi login yang berhasil maka biasanya server akan memberikan response berupa "login success" atau semacamnya. Hal ini juga berarti bahwa paket yang dikirimkan ke server tepat sebelum paket response tersebut adalah password yang berasal dari attacker.
+
+![Password attacker](images/mio_proof.png)
+
+Selanjutnya digunakan filter `ip.src==10.30.1 && frame contains "USER"` untuk mendapat user yang digunakan oleh attacker.
+
+![Username attacker](images/mio_proof2.png)
+
+Maka didapatkan kredesial attacker yaitu **USERNAME: h3ngk3rTzy** dan **PASSWORD: S!l3ncE**
+
+### Malwleowleo
+Dalam case yang sama dengan soal sebelumnya diminta untuk menncari file malware yang diupload oleh attacker kedalam server, maka digunakan `frame contains "STOR" untuk mencari paket yang berisi upload ke server.`
+
+![File malware](images/mio_proof3.png)
+
+### Secret
+Terakhir diminta untuk mencari pesan rahasia dari attacker. Pesan tersebut tersimpan dalam gambar `mirza.jpg` yang berbunyi **Mio Mirza**
+
+![MIO MIRZA](images/mirza.jpg)
